@@ -1,0 +1,292 @@
+---
+title: "R Programming Vectors"
+author: "Krisztina Gyalai"
+date: "24/01/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Vectors:**
+
+* Basic data object in R. 
+* Can contain the same or different data types. 
+* Vector with same data type: **atomic vector**
+* Types: character, integer, double, complex, logical, raw
+
+### 1.Creating empty vectors
+
+```{r}
+# creating empty vector with c() 
+# output = 'NULL'
+vector_1 <- c()
+#creating empty vector with vector()
+#output ='logical (empty)'
+vector_2 <- vector()
+#creating vector by giving the name to variable and passing NULL into it
+#output 'NULL'
+vector_3 <- NULL
+#using numeric function 
+#creates numeric vector output = 'numeric (empty)'
+vector_4 <- numeric()
+#using the rep() function
+#output = 'NULL'
+vector_5 <- rep()
+#creating an empty nested vector
+#output = 'NULL' 
+vector_6 <- c(c(),c())
+```
+
+### 2.Adding elements to the vector 
+
+```{r}
+#using the range (:) operator 
+# need to add a start and end value 
+#add numbers from 10 to 20 to vector_1
+vector_1 <- 10:20
+print(vector_1)
+```
+
+```{r}
+#assigning values to the vector which was empty
+print(vector_2)
+vector_2 <- c(TRUE,FALSE,FALSE,FALSE,FALSE)
+print(vector_2)
+```
+
+```{r}
+#using index [] operator 
+# index value is a location where the particular element is located 
+# data value which added to this particular location 
+#insert number 100 in location 1 to vector_1 
+vector_1[1] <- 100
+print(vector_1)
+```
+```{r}
+#insert 0.1 to location 5
+vector_1[5] <- 0.1
+print(vector_1)
+
+```
+
+Adding float to the integer vector changed all data types inside the vector to float. 
+
+```{r}
+#using append() function
+#add 200 to vector_1
+vector_1 <- append(vector_1,200)
+print(vector_1)
+```
+```{r}
+#add multiple values with append c()
+#add 300,400,500 to vector_1
+vector_1 <- append(vector_1, c(300,400,500))
+print(vector_1)
+```
+
+### 3.Find Sum, Mean and Product of a vector
+
+In case if there a single vector is specified then the operation will be performed over individual elements. 
+
+
+```{r}
+#create a vector, find the mean include NA in the calculation 
+a <- c(5,5,5,5,5)
+print(mean(a, na.rm = FALSE))
+#create a vector include NA value
+b <- c(5,5,5,NA,5)
+#save it as a numeric vector
+as.numeric(b)
+#ignore NA on mean calculation 
+print(mean(b,na.rm=TRUE))
+#don't ignore NA
+c <- b
+print(mean(c))
+#sum
+print(sum(a, na.rm = FALSE))
+#product
+prod(a)
+#with NA s 
+prod(b)
+#ignore NA's
+prod(b, na.rm = TRUE)
+```
+### 4.Adding, dividing and multiplying vectors by other vector 
+
+```{r}
+#add
+vector_a <- c(10,20,30)
+vector_b <- c(20,20,20)
+cat("a:", vector_a,"\nb:",vector_b)
+vector_c <- vector_a + vector_b
+cat("\na+b:", vector_c)
+#divide
+vector_d <- vector_a/vector_b
+cat("\na/b:",vector_d)
+#multiple
+vector_e <- vector_a * vector_b 
+cat("\na*b:", vector_e)
+```
+### 5.Find the minimum and maximum element of a vector 
+
+```{r}
+#create a vector
+a <- as.numeric(c(7.23, 5.88, 9.23, 12.99, 23.1))
+cat("vector:", a)
+#find minimum
+cat("\nMinimum:",min(a))
+#find maximum
+cat("\nMaximum:",max(a))
+```
+### 6.Sorting the elements of the vector
+
+```{r}
+x <- c(1,5,89,34,55,62,2,45)
+print(x)
+#sort increasing
+print(sort(x))
+#descending 
+print(sort(x, decreasing = TRUE))
+
+```
+### 7 Check wheather the vector contain a given element 
+
+```{r}
+print(x)
+#check that vector x has the element 5 in it
+print(is.element(5,x))
+#check that vector x has the element 6 
+print(is.element(6, x))
+```
+### 8. Finding the last element in the vector 
+
+```{r}
+print(x)
+#find the last element in the vector
+print(tail(x, n = 1))
+#find the last three elements in the vector
+print(tail(x, n=3 ))
+```
+### 9. Finding the 'n' highest and 'n' lowest number in the vector
+
+```{r}
+print(x)
+#find the length of the vector
+l = length(x)
+cat("\nThe Length of the vector is =",l,"\n")
+#if we sort the vector in increasing order we know the last number will be the highest
+# sort vector
+sort(x)
+#vector is 8 element long
+#the 8th number is the highest 
+#to find the second highest number
+sorted_x <- sort(x)
+#second highest number
+cat("\nThe second highest number is:", sorted_x[l-1])
+#find the second lowest if we know the lowest number is in location 1
+cat("\nThe second lowest number is:",sorted_x[l-6])
+```
+### 10.Extract every 'nth' element of the vector
+
+```{r}
+#create a vector 
+y <- c(50:100)
+print(y)
+#extract every 3th element 
+#sequence starting with first element until the last element of the vector jump with 3
+n <- y[seq(1, length(y),3)]
+print(n)
+
+```
+### 11.Find the most common element of multiple vectors
+
+```{r}
+fruits_1 <- c("apple","banana","pear")
+fruits_2 <- c("pineapple","apple","wine apple")
+fruits_3 <- c("apple", "kiwi", "banana")
+cat("1:",fruits_1,"\n2:",fruits_2,"\n3:",fruits_3,"\n")
+#find the common element
+cat("most common element:",intersect(intersect(fruits_1,fruits_2),fruits_3))
+```
+```{r}
+#there are two most common elements : both appear as a result - tie between 
+fruits_1 <- c("apple","banana","pear")
+fruits_2 <- c("pineapple","apple","banana")
+fruits_3 <- c("apple", "kiwi", "banana")
+cat("1:",fruits_1,"\n2:",fruits_2,"\n3:",fruits_3,"\n")
+#find the common element
+cat("most common element:",intersect(intersect(fruits_1,fruits_2),fruits_3))
+```
+### 12. Find unique values in a vector (distinct elements) 
+
+```{r}
+fruits <- c("pineapple", "apple","apple", "banana","pineapple")
+print(fruits)
+unique(fruits)
+```
+
+### 13. Find elements in the vaector that distinct from the other vector 
+
+```{r}
+#given two vector
+fruits_1 <- c("apple","banana","pear")
+fruits_2 <- c("pineapple","apple","banana")
+cat("\n1:",fruits_1,"\n2:",fruits_2)
+#find the difference 
+cat("\ndifference:", setdiff(fruits_1,fruits_2))
+
+```
+
+### 14.Reverse the order of a vector
+
+```{r}
+print(fruits)
+cat("\nreversed:",rev(fruits))
+```
+### 15.Concatanate elements of the vector
+
+```{r}
+print(fruits)
+#merge words together
+concat <- paste(fruits, collapse = "")
+print(concat)
+```
+
+### 16.Count the number of elements of the vector within the given range
+
+```{r}
+#create a vector for numbers 1 to 10
+x <- c(1:10)
+print(x)
+#check how many numbers are between 3 and 7
+in_between <- sum( x > 3 & x < 7)
+print(in_between)
+```
+### 17.combine two vectors 
+
+```{r}
+x <- c("apple","carrot","potato","sugar")
+y <- c(1,9,4,7)
+cat("\nx:",x, "\ny:",y)
+#combine the two vectors vertically
+new <- cbind(x,y)
+print(new)
+#combine vertically
+new_2 <- rbind(x,y)
+cat("\n",new_2)
+```
+
+### 18. Creating vector using the seq() function 
+
+```{r}
+#create a vector using seq(), start, end, step 
+sequence <- seq(3, 12, by = 0.5)
+print(sequence)
+#specify the length - how many segment you want to cut the numbers in between 
+sequence_2 <- seq(3, 12, length.out = 13)
+print(sequence_2)
+
+```
+
